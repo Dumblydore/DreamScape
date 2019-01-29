@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dream"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/dream.player"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dream.weather.temp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:text="50°" />
+
+    <TextView
+        android:id="@+id/dream.weather.location"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:text="Ann Arbor, Michigan" />
+
+    <ImageView
+        android:id="@+id/dream.weather.icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="dream.weather.temp,dream.weather.location,dream.weather.icon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
