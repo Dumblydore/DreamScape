@@ -7,6 +7,7 @@ abstract class BasePresenter<V : BaseContract.View<A>, S, A> : BaseContract.Pres
 
     final override fun attachView(view: V): Observable<S> = onViewAttached(view)
             .doOnDispose(::onViewDetached)
+            .subscribeOn(AndroidSchedulers.mainThread())
             .observeOn(AndroidSchedulers.mainThread())
 
     inline fun stateless(crossinline action: () -> Unit): Observable<S> =

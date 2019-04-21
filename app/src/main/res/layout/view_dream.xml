@@ -13,29 +13,53 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:use_controller="false" />
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextClock
+        android:id="@+id/dream.weather.time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:format12Hour="H:mm"
+        android:format24Hour="@null"
+        android:textColor="@color/lb_tv_white"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@id/dream.weather.location"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="10:10" />
 
     <TextView
         android:id="@+id/dream.weather.temp"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/dream.weather.location"
+        app:layout_constraintEnd_toStartOf="@id/dream.weather.time"
+        tools:drawableEnd="@drawable/ic_info_black_24dp"
         tools:text="50°" />
 
     <TextView
         android:id="@+id/dream.weather.location"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        tools:text="Ann Arbor, Michigan" />
-
-    <ImageView
-        android:id="@+id/dream.weather.icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp" />
-
-    <androidx.constraintlayout.widget.Group
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:constraint_referenced_ids="dream.weather.temp,dream.weather.location,dream.weather.icon" />
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/lb_tv_white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Ann Arbor, Michigan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

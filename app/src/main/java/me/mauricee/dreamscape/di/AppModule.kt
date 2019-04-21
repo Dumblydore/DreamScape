@@ -1,14 +1,25 @@
 package me.mauricee.dreamscape.di
 
+import android.app.Service
+import android.content.Context
+import android.location.LocationManager
 import android.service.dreams.DreamService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
+import dagger.android.ServiceKey
+import dagger.multibindings.IntoMap
+import me.mauricee.dreamscape.DreamScapeApp
+import me.mauricee.dreamscape.daydream.DayDreamService
 import me.mauricee.dreamscape.daydream.DreamModule
 import me.mauricee.dreamscape.daydream.DreamScope
+import me.mauricee.dreamscape.daydream.DreamServiceComponent
 import me.mauricee.dreamscape.domain.apple.AppleApi
+import me.mauricee.dreamscape.domain.weather.WeatherService
 import okhttp3.OkHttpClient
 import org.aaronhe.threetengson.ThreeTenGsonAdapter
 import retrofit2.Retrofit
@@ -18,14 +29,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Scope
 
-@Module
-abstract class AppModule() {
+@Module(subcomponents = [DreamServiceComponent::class])
+abstract class AppModule {
 
-    @DreamScope
-    @ContributesAndroidInjector(modules = [DreamModule::class])
-    abstract fun contributesDreamService(): DreamService
-
-
+    @Module
     companion object {
 
         @AppScope
@@ -63,8 +70,21 @@ abstract class AppModule() {
                 .addConverterFactory(converterFactory)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addCallAdapterFactory(callFactory)
-                .baseUrl("https://www.floatplane.com/api/")
+                .baseUrl("http://sylvan.apple.com/")
                 .build().create(AppleApi::class.java)
+
+
+        @Provides
+        @AppScope
+        @JvmStatic
+        fun providesWeatherService(converterFactory: GsonConverterFactory,
+                             callFactory: RxJava2CallAdapterFactory, client: OkHttpClient):
+                WeatherService = Retrofit.Builder().client(client)
+                .addConverterFactory(converterFactory)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addCallAdapterFactory(callFactory)
+                .baseUrl("https://api.darksky.net/")
+                .build().create(WeatherService::class.java)
 
     }
 }
